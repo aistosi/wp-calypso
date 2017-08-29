@@ -2,26 +2,27 @@
  * External dependencies
  */
 import { debounce } from 'lodash';
-var ReactDom = require( 'react-dom' ),
-	React = require( 'react' ),
-	classNames = require( 'classnames' );
+import ReactDom from 'react-dom';
+import React from 'react';
+import classNames from 'classnames';
 
 /**
  * Internal Dependencies
  */
-var SelectDropdown = require( 'components/select-dropdown' ),
-	DropdownItem = require( 'components/select-dropdown/item' ),
-	viewport = require( 'lib/viewport' );
+import SelectDropdown from 'components/select-dropdown';
+
+import DropdownItem from 'components/select-dropdown/item';
+import viewport from 'lib/viewport';
 
 /**
  * Internal Variables
  */
-var MOBILE_PANEL_THRESHOLD = 480;
+const MOBILE_PANEL_THRESHOLD = 480;
 
 /**
  * Main
  */
-var NavTabs = React.createClass( {
+const NavTabs = React.createClass( {
 
 	propTypes: {
 		selectedText: React.PropTypes.string,
@@ -49,7 +50,7 @@ var NavTabs = React.createClass( {
 		window.addEventListener( 'resize', this.debouncedAfterResize );
 	},
 
-	componentWillReceiveProps: function() {
+	componentDidUpdate: function() {
 		this.setDropdown();
 	},
 
@@ -58,18 +59,18 @@ var NavTabs = React.createClass( {
 	},
 
 	render: function() {
-		var tabs = React.Children.map( this.props.children, function( child, index ) {
+		const tabs = React.Children.map( this.props.children, function( child, index ) {
 			return child && React.cloneElement( child, { ref: 'tab-' + index } );
 		} );
 
-		var tabsClassName = classNames( {
+		const tabsClassName = classNames( {
 			'section-nav-tabs': true,
 			'is-dropdown': this.state.isDropdown,
 			'is-open': this.state.isDropdownOpen,
 			'has-siblings': this.props.hasSiblingControls
 		} );
 
-		var innerWidth = viewport.getWindowInnerWidth();
+		const innerWidth = viewport.getWindowInnerWidth();
 
 		return (
 			<div className="section-nav-group" ref="navGroup">
@@ -98,27 +99,27 @@ var NavTabs = React.createClass( {
 	},
 
 	getTabWidths: function() {
-		var totalWidth = 0;
+		let totalWidth = 0;
 
 		React.Children.forEach( this.props.children, function( child, index ) {
 			if ( ! child ) {
 				return;
 			}
-			let tabWidth = ReactDom.findDOMNode( this.refs[ 'tab-' + index ] ).offsetWidth;
+			const tabWidth = ReactDom.findDOMNode( this.refs[ 'tab-' + index ] ).offsetWidth;
 			totalWidth += tabWidth;
 		}.bind( this ) );
 
-		this.tabsWidth = totalWidth;
+		this.tabsWidth = Math.max( totalWidth, this.tabsWidth || 0 );
 	},
 
 	getDropdown: function() {
-		var dropdownOptions = React.Children.map(
+		const dropdownOptions = React.Children.map(
 		this.props.children, function( child, index ) {
 			if ( ! child ) {
 				return null;
 			}
 			return (
-				<DropdownItem {...child.props} key={ 'navTabsDropdown-' + index }>
+				<DropdownItem { ...child.props } key={ 'navTabsDropdown-' + index }>
 					{ child.props.children }
 				</DropdownItem>
 			);
@@ -136,7 +137,7 @@ var NavTabs = React.createClass( {
 	},
 
 	setDropdown: function() {
-		var navGroupWidth;
+		let navGroupWidth;
 
 		if ( window.innerWidth > MOBILE_PANEL_THRESHOLD ) {
 			if ( ! this.refs.navGroup ) {
@@ -145,9 +146,7 @@ var NavTabs = React.createClass( {
 
 			navGroupWidth = this.refs.navGroup.offsetWidth;
 
-			if ( ! this.tabsWidth ) {
-				this.getTabWidths();
-			}
+			this.getTabWidths();
 
 			if ( navGroupWidth <= this.tabsWidth && ! this.state.isDropdown ) {
 				this.setState( {

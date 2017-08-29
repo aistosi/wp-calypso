@@ -1,0 +1,15 @@
+.stats-navigation {
+	.section-nav__panel {
+		padding-right: 16px;
+	}
+	.segmented-control {
+		margin-left: 16px;
+	}
+	.followers-count .button {
+		margin-left: 16px;
+
+		@include breakpoint( "<480px" ) {
+			display: none;
+		}
+	}
+}
