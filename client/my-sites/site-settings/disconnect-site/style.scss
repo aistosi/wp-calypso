@@ -19,13 +19,18 @@
 	}
 
 .disconnect-site__pagination {
-		&.main {
-			margin: 16px 0 24px 0;
-			text-align: center;
-		}
+	&.main {
+		margin: 16px 0 24px 0;
+		text-align: center;
+	}
 }
 
 .disconnect-site__back-button {
 	position: absolute;
 	top: 57px
+}
+
+.disconnect-site__question {
+	padding-bottom: 20px;
+	text-align: left;
 }
