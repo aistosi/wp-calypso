@@ -1,9 +1,17 @@
 .stats-navigation {
 	.section-nav__panel {
 		padding-right: 16px;
+
+		@include breakpoint( "<480px" ) {
+			padding-right: 0;
+		}
 	}
 	.segmented-control {
 		margin-left: 16px;
+
+		@include breakpoint( "<480px" ) {
+			margin-left: 0;
+		}
 	}
 	.followers-count .button {
 		margin-left: 16px;
