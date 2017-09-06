@@ -32,7 +32,6 @@ export const MediaBasicsTour = makeTour(
 		when={ and(
 			isDesktop,
 			isNewUser,
-			doesSelectedSiteHaveMediaFiles,
 		) }
 	>
 		<Step
@@ -87,6 +86,8 @@ export const MediaBasicsTour = makeTour(
 			arrow="top-left"
 			target=".media-library__list-item:not(.is-selected), .media-library__list-item"
 			style={ { marginTop: '-10px' } }
+			when={ doesSelectedSiteHaveMediaFiles }
+			next="done-no-media"
 		>
 			<p>
 				{ translate( 'Once you upload a file, you can edit its title, add a caption, and even do basic photo editing.' ) }
@@ -161,5 +162,21 @@ export const MediaBasicsTour = makeTour(
 				<Quit primary>{ translate( "Got it, I'm ready to explore!" ) }</Quit>
 			</ButtonRow>
 		</Step>
+
+		<Step name="done-no-media"
+			placement="center"
+		>
+			<p>
+				{
+					translate( 'Once you have added media, you can edit them and use them in your pages and posts. ' +
+						'Or just add them from within the editor.'
+					)
+				}
+			</p>
+			<ButtonRow>
+				<Quit primary>{ translate( "Got it, I'm ready to explore!" ) }</Quit>
+			</ButtonRow>
+		</Step>
+
 	</Tour>
 );
