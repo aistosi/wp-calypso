@@ -1,8 +1,11 @@
+import { debounce } from 'lodash';
+import ReactDom from 'react-dom';
+
 /**
  * External dependencies
  */
-import { debounce } from 'lodash';
-import ReactDom from 'react-dom';
+import PropTypes from 'prop-types';
+
 import React from 'react';
 import classNames from 'classnames';
 
@@ -24,10 +27,10 @@ const MOBILE_PANEL_THRESHOLD = 480;
  */
 class NavTabs extends React.Component {
 	static propTypes = {
-		selectedText: React.PropTypes.string,
-		selectedCount: React.PropTypes.number,
-		label: React.PropTypes.string,
-		hasSiblingControls: React.PropTypes.bool
+		selectedText: PropTypes.string,
+		selectedCount: PropTypes.number,
+		label: PropTypes.string,
+		hasSiblingControls: PropTypes.bool
 	};
 
 	static defaultProps = {
