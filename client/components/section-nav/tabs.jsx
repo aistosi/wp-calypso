@@ -22,43 +22,38 @@ const MOBILE_PANEL_THRESHOLD = 480;
 /**
  * Main
  */
-const NavTabs = React.createClass( {
-
-	propTypes: {
+class NavTabs extends React.Component {
+	static propTypes = {
 		selectedText: React.PropTypes.string,
 		selectedCount: React.PropTypes.number,
 		label: React.PropTypes.string,
 		hasSiblingControls: React.PropTypes.bool
-	},
+	};
 
-	getDefaultProps: function() {
-		return {
-			hasSiblingControls: false
-		};
-	},
+	static defaultProps = {
+		hasSiblingControls: false
+	};
 
-	getInitialState: function() {
-		return {
-			isDropdown: false
-		};
-	},
+	state = {
+		isDropdown: false
+	};
 
-	componentDidMount: function() {
+	componentDidMount() {
 		this.setDropdown();
 		this.debouncedAfterResize = debounce( this.setDropdown, 300 );
 
 		window.addEventListener( 'resize', this.debouncedAfterResize );
-	},
+	}
 
-	componentDidUpdate: function() {
+	componentDidUpdate() {
 		this.setDropdown();
-	},
+	}
 
-	componentWillUnmount: function() {
+	componentWillUnmount() {
 		window.removeEventListener( 'resize', this.debouncedAfterResize );
-	},
+	}
 
-	render: function() {
+	render() {
 		const tabs = React.Children.map( this.props.children, function( child, index ) {
 			return child && React.cloneElement( child, { ref: 'tab-' + index } );
 		} );
@@ -96,9 +91,9 @@ const NavTabs = React.createClass( {
 				</div>
 			</div>
 		);
-	},
+	}
 
-	getTabWidths: function() {
+	getTabWidths = () => {
 		let totalWidth = 0;
 
 		React.Children.forEach( this.props.children, function( child, index ) {
@@ -110,9 +105,9 @@ const NavTabs = React.createClass( {
 		}.bind( this ) );
 
 		this.tabsWidth = Math.max( totalWidth, this.tabsWidth || 0 );
-	},
+	};
 
-	getDropdown: function() {
+	getDropdown = () => {
 		const dropdownOptions = React.Children.map(
 		this.props.children, function( child, index ) {
 			if ( ! child ) {
@@ -134,9 +129,9 @@ const NavTabs = React.createClass( {
 				{ dropdownOptions }
 			</SelectDropdown>
 		);
-	},
+	};
 
-	setDropdown: function() {
+	setDropdown = () => {
 		let navGroupWidth;
 
 		if ( window.innerWidth > MOBILE_PANEL_THRESHOLD ) {
@@ -162,9 +157,9 @@ const NavTabs = React.createClass( {
 				isDropdown: false
 			} );
 		}
-	},
+	};
 
-	keyHandler: function( event ) {
+	keyHandler = event => {
 		switch ( event.keyCode ) {
 			case 32: // space
 			case 13: // enter
@@ -172,7 +167,7 @@ const NavTabs = React.createClass( {
 				document.activeElement.click();
 				break;
 		}
-	}
-} );
+	};
+}
 
 export default NavTabs;
