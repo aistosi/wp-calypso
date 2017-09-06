@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Gridicon from 'gridicons';
 import { localize } from 'i18n-calypso';
 
 /**
@@ -88,6 +89,13 @@ export class CommentDetailEdit extends Component {
 					onChange={ this.setCommentContentValue }
 					value={ commentContent }
 				/>
+
+				{ isAuthorRegistered &&
+						<p className="comment-detail__edit-jetpack-update-notice">
+							<Gridicon icon="notice-outline" />
+							{ translate( 'A registered user\'s name and URL cannot be edited.' ) }
+						</p>
+				}
 
 				<div className="comment-detail__edit-buttons">
 					<FormButton
