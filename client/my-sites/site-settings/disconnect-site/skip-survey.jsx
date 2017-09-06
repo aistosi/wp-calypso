@@ -14,7 +14,7 @@ import Gridicon from 'gridicons';
 import Main from 'components/main';
 import { getSelectedSiteSlug } from 'state/ui/selectors';
 
-class PaginationFlow extends Component {
+class SkipSurvey extends Component {
 	handleClick = () => {
 		const { siteSlug } = this.props;
 
@@ -41,4 +41,4 @@ class PaginationFlow extends Component {
 
 export default connect( state => ( {
 	siteSlug: getSelectedSiteSlug( state ),
-} ) )( localize( PaginationFlow ) );
+} ) )( localize( SkipSurvey ) );

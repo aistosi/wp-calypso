@@ -14,7 +14,7 @@ import DocumentHead from 'components/data/document-head';
 import FormattedHeader from 'components/formatted-header';
 import { getSelectedSite } from 'state/ui/selectors';
 import Main from 'components/main';
-import PaginationFlow from './pagination-flow';
+import SkipSurvey from './skip-survey';
 import Placeholder from 'my-sites/site-settings/placeholder';
 import redirectNonJetpackToGeneral from 'my-sites/site-settings/redirect-to-general';
 
@@ -35,16 +35,16 @@ class DisconnectSite extends Component {
 					) }
 				/>
 				<Card className="disconnect-site__card"> </Card>
-				<PaginationFlow />
+				<SkipSurvey />
 			</Main>
 		);
 	}
 }
 
 const connectComponent = connect( state => {
-	return {
-		site: getSelectedSite( state ),
-	};
+	{
+		site: getSelectedSite( state );
+	}
 } );
 
 export default flowRight( connectComponent, localize, redirectNonJetpackToGeneral )(
